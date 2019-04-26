@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BusinessObjects.OwnerPetBO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.name
+        </td>
+        <td>
+            @item.gender
+        </td>
+        <td>
+            @item.age
+        </td>
+        <td>
+            @if(item.pets!=null)
+            {
+                @item.pets.Count
+            }
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+    </tr>
+}
+
+</table>
