@@ -37,21 +37,22 @@ namespace BusinessLogicLayer
 
             foreach (var item in objOwnerPetDO)
             {
-                objOwnerPetBO = new OwnerPetBO
+                if (item.pets != null)
                 {
-                    age = item.age,
-                    gender = item.gender,
-                    name = item.name,
-                    pets =
-                    (item.pets != null) ? item.pets.Select(m => new PetBO
+                    objOwnerPetBO = new OwnerPetBO
                     {
-                        name = m.name,
-                        type = m.type
-                    }).ToList()
-                    :
-                    null
-                };
-                lstOwnerPetBO.Add(objOwnerPetBO);
+                        age = item.age,
+                        gender = item.gender,
+                        name = item.name,
+                        pets = item.pets.Where(x => x.type == "Cat").Select(m => new PetBO
+                        {
+                            name = m.name,
+                            type = m.type
+                        }).ToList()
+                    };
+
+                    lstOwnerPetBO.Add(objOwnerPetBO);
+                }
             }
 
             return lstOwnerPetBO;

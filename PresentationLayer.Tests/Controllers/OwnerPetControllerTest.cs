@@ -13,13 +13,11 @@ namespace PresentationLayer.Tests.Controllers
     [TestClass]
     class OwnerPetControllerTest
     {
-        private IOwnerPetBuss _iOwnerPetBuss;
-
         [TestMethod]
         public void Index()
         {
             // Arrange
-            OwnerPetController controller = new OwnerPetController(_iOwnerPetBuss);
+            OwnerPetController controller = new OwnerPetController();
 
             // Act
             ViewResult result = controller.Index() as ViewResult;

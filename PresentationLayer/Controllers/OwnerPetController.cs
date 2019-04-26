@@ -21,6 +21,10 @@ namespace PresentationLayer.Controllers
     {
         private IOwnerPetBuss _iOwnerPetBuss;
 
+        public OwnerPetController()
+        {
+        }
+
         public OwnerPetController(IOwnerPetBuss iOwnerPetBuss)
         {
             _iOwnerPetBuss = iOwnerPetBuss;
@@ -48,15 +52,7 @@ namespace PresentationLayer.Controllers
 
             IEnumerable<OwnerPetBO> lOwnerPetBO = _iOwnerPetBuss.getOwnerPetInfoBL().lstOwnerPetBO;
 
-            List<OwnerPetBO> lstOwnerPetBO = new List<OwnerPetBO>(); //lOwnerPetBO.Where(x => x.pets.Any(p => p.type == "Cat")).ToList();
-
-            foreach (var items in lstOwnerPetBO)
-            {
-                if (items.pets!=null && items.pets.Any(x => x.type == "Cat"))
-                    lstOwnerPetBO.Add(items);
-            }
-
-            return View(lstOwnerPetBO);
+            return View(lOwnerPetBO);
         }
     }
 }
