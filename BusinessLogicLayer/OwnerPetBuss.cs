@@ -19,32 +19,33 @@ namespace BusinessLogicLayer
             _iOwnerPetResponse = iOwnerPetResponse;
         }
 
-        public OwnerPetBusinessResponse getOwnerPetInfoBL()
+        public OwnerPetBusinessResponse getOwnerPetInfoByPetTypeBL(string petType)
         {
             objOwnerPetResponse = _iOwnerPetResponse.getOwnerPetInfoDA();
 
             return new OwnerPetBusinessResponse()
             {
-                lstOwnerPetBO = (objOwnerPetResponse.lstOwnerPetDO != null) ? TransformIntoBusinessObject(objOwnerPetResponse.lstOwnerPetDO) : null,
+                lstOwnerPetBO = (objOwnerPetResponse.lstOwnerPetDO != null) ?
+                                TransformIntoBusinessObject(objOwnerPetResponse.lstOwnerPetDO, petType) : null,
                 oWebResponse = objOwnerPetResponse.oWebResponse
             };
         }
 
-        private List<OwnerPetBO> TransformIntoBusinessObject(IEnumerable<OwnerPetDO> objOwnerPetDO)
+        private List<OwnerPetBO> TransformIntoBusinessObject(IEnumerable<OwnerPetDO> objOwnerPetDO, string petType)
         {
             List<OwnerPetBO> lstOwnerPetBO = new List<OwnerPetBO>();
             OwnerPetBO objOwnerPetBO;
 
             foreach (var item in objOwnerPetDO)
             {
-                if (item.pets != null)
+                if (item.pets != null && item.pets.Any(x => x.type == petType))
                 {
                     objOwnerPetBO = new OwnerPetBO
                     {
                         age = item.age,
                         gender = item.gender,
                         name = item.name,
-                        pets = item.pets.Where(x => x.type == "Cat").Select(m => new PetBO
+                        pets = item.pets.Where(x => x.type == petType).Select(m => new PetBO
                         {
                             name = m.name,
                             type = m.type

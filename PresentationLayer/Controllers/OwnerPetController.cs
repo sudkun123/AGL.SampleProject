@@ -33,26 +33,24 @@ namespace PresentationLayer.Controllers
         [PresentationLogger]
         [MyAuthentication]
         [HttpGet]
-        public ActionResult Index()
+
+        public ActionResult Index(string petType = "Cat")
         {
-            if (_iOwnerPetBuss.getOwnerPetInfoBL().oWebResponse != null)
+            if (LogOnException(_iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse, petType) == null)
             {
-                switch (_iOwnerPetBuss.getOwnerPetInfoBL().oWebResponse.StatusCode)
-                {
-                    case HttpStatusCode.InternalServerError:
-                        return Content(HttpStatusCode.InternalServerError.ToString(), _iOwnerPetBuss.getOwnerPetInfoBL().oWebResponse.StatusDescription);
-                    case HttpStatusCode.NotFound:
-                        return Content(HttpStatusCode.NotFound.ToString(), _iOwnerPetBuss.getOwnerPetInfoBL().oWebResponse.StatusDescription);
-                    case HttpStatusCode.BadRequest:
-                        return Content(HttpStatusCode.BadRequest.ToString(), _iOwnerPetBuss.getOwnerPetInfoBL().oWebResponse.StatusDescription);
-                    case HttpStatusCode.Unauthorized:
-                        return Content(HttpStatusCode.Unauthorized.ToString(), _iOwnerPetBuss.getOwnerPetInfoBL().oWebResponse.StatusDescription);
-                }
+                IEnumerable<OwnerPetBO> lOwnerPetBO = _iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).lstOwnerPetBO;
+                return View(lOwnerPetBO);
             }
+            else
+                return null;
+        }
 
-            IEnumerable<OwnerPetBO> lOwnerPetBO = _iOwnerPetBuss.getOwnerPetInfoBL().lstOwnerPetBO;
-
-            return View(lOwnerPetBO);
+        private ActionResult LogOnException(HttpWebResponse oWebResponse, string petType)
+        {
+            if (_iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse != null)
+                return Content(_iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse.StatusCode.ToString(), _iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse.StatusDescription);
+            else
+                return null;
         }
     }
 }

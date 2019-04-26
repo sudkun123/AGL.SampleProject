@@ -9,6 +9,6 @@ namespace BusinessLogicLayer
 {
     public interface IOwnerPetBuss
     {
-        OwnerPetBusinessResponse getOwnerPetInfoBL();
+        OwnerPetBusinessResponse getOwnerPetInfoByPetTypeBL(string petType);
     }
 }
