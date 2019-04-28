@@ -9,7 +9,7 @@ namespace UtilitiesLayer
 
     public static class WebUtilities
     {
-        public const string URL = "http://agl-developer-test.azurewebsites.net/people.json";
+        public const string URL = "http://agl-developer-test.azurewebsites.net/people.json1";
         public const string httpVerb = "GET";
         public const string contentType = "application/json";
 

@@ -22,6 +22,11 @@ namespace PresentationLayer.Controllers
     {
         private IOwnerPetBuss _iOwnerPetBuss;
 
+        public OwnerPetController()
+        {
+            _iOwnerPetBuss = new OwnerPetBuss();
+        }
+
         public OwnerPetController(IOwnerPetBuss iOwnerPetBuss)
         {
             _iOwnerPetBuss = iOwnerPetBuss;
@@ -33,20 +38,19 @@ namespace PresentationLayer.Controllers
 
         public ActionResult Index(string petType = "Cat")
         {
-            if (LogOnException(_iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL(petType).oWebResponse, petType) == null)
-            {
-                return View(_iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL(petType).lstOwnerPetBO);
-            }
-            else
-                return null;
-        }
+            var result = _iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL(petType);
 
-        private ActionResult LogOnException(HttpWebResponse oWebResponse, string petType)
-        {
-            if (_iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse != null)
-                return Content(_iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse.StatusCode.ToString(), _iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse.StatusDescription);
-            else
-                return null;
+            if (result == null || (result.oWebResponse == null && result.lstOwnerPetBO == null))
+                return Content(HttpStatusCode.BadGateway.ToString());
+            else if (result.oWebResponse != null)
+                return Content(result.oWebResponse.StatusCode.ToString(), result.oWebResponse.StatusDescription);
+            else if (result.lstOwnerPetBO == null)
+                return Content(HttpStatusCode.BadRequest.ToString());
+            else if ((result.lstOwnerPetBO.Where(x => x.Key == "Male").FirstOrDefault()).Value.Count == 0 
+                                || (result.lstOwnerPetBO.Where(x => x.Key == "Female").FirstOrDefault()).Value.Count == 0)
+                return Content(HttpStatusCode.NotFound.ToString(), "No" + petType + " found!");
+            else 
+                return View(result.lstOwnerPetBO);
         }
     }
 }

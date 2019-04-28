@@ -15,6 +15,11 @@ namespace BusinessLogicLayer
         private IOwnerPetData _iOwnerPetResponse;
         OwnerPetResponse objOwnerPetResponse;
 
+        public OwnerPetBuss()
+        {
+            _iOwnerPetResponse = new OwnerPetData();
+        }
+
         public OwnerPetBuss(IOwnerPetData iOwnerPetResponse)
         {
             _iOwnerPetResponse = iOwnerPetResponse;
