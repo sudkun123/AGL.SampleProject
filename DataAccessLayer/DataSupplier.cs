@@ -31,7 +31,6 @@ namespace DataAccessLayer
                 request.PreAuthenticate = true;
                 request.Credentials = myCredentialCache;
 
-
                 // "POST";request.ContentType = JSONContentType; // "application/json";   
                 //Byte[] bt = Encoding.UTF8.GetBytes(sb);
                 //Stream st = request.GetRequestStream();
@@ -40,16 +39,6 @@ namespace DataAccessLayer
 
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
-                    //if (response.StatusCode != HttpStatusCode.OK)
-                    //{
-                    //    return response;
-                    //throw new Exception(String.Format(
-                    //"Server error (HTTP {0}: {1}).", response.StatusCode,
-                    //    response.StatusDescription));
-                    //}
-
-                    //DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Response));// object objResponse = JsonConvert.DeserializeObject();
-
                     StreamReader sr = new StreamReader(response.GetResponseStream());
                     string strsb = sr.ReadToEnd();
                     object objResponse = JsonConvert.DeserializeObject(strsb, JSONResponseType);
