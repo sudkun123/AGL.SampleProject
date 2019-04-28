@@ -12,13 +12,13 @@ using BusinessObjects;
 namespace PresentationLayer.Tests.Controllers
 {
     [TestClass()]
-    public class OwnerPetControllerTest:Controller
+    public class OwnerPetControllerTest : Controller
     {
         public IOwnerPetBuss _iOwnerPetBuss;
 
         public OwnerPetControllerTest()
         {
-
+            UnityConfig.RegisterComponents();
         }
 
         public OwnerPetControllerTest(IOwnerPetBuss iOwnerPetBuss)
@@ -33,6 +33,7 @@ namespace PresentationLayer.Tests.Controllers
 
             Assert.IsTrue(oOwnerPet.Count == 2);
         }
+
         
     }
 }
