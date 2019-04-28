@@ -16,10 +16,9 @@ namespace PresentationLayer.Tests.Controllers
     {
         public IOwnerPetBuss _iOwnerPetBuss;
 
-        public OwnerPetControllerTest()
-        {
-            UnityConfig.RegisterComponents();
-        }
+        //public OwnerPetControllerTest()
+        //{
+        //}
 
         public OwnerPetControllerTest(IOwnerPetBuss iOwnerPetBuss)
         {
@@ -29,6 +28,7 @@ namespace PresentationLayer.Tests.Controllers
         [TestMethod()]
         public void SuccessScenario()
         {
+            UnityConfig.RegisterComponents();
             var oOwnerPet = _iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL("Cat").lstOwnerPetBO;
 
             Assert.IsTrue(oOwnerPet.Count == 2);

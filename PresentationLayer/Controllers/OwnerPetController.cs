@@ -22,10 +22,6 @@ namespace PresentationLayer.Controllers
     {
         private IOwnerPetBuss _iOwnerPetBuss;
 
-        public OwnerPetController()
-        {
-        }
-
         public OwnerPetController(IOwnerPetBuss iOwnerPetBuss)
         {
             _iOwnerPetBuss = iOwnerPetBuss;
