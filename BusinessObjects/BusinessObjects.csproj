@@ -43,6 +43,7 @@
     <Compile Include="OwnerPetBO.cs" />
     <Compile Include="OwnerPetBusinessResponse.cs" />
     <Compile Include="PetBO.cs" />
+    <Compile Include="PetListGroupByOwnerGenderBusinessResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

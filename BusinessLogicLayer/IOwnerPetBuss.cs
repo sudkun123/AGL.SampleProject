@@ -10,5 +10,6 @@ namespace BusinessLogicLayer
     public interface IOwnerPetBuss
     {
         OwnerPetBusinessResponse getOwnerPetInfoByPetTypeBL(string petType);
+        PetListGroupByOwnerGenderBusinessResponse getOwnerPetInfoGroupByOwnerGenderBL(string petType);
     }
 }

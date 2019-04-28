@@ -14,6 +14,7 @@ using BusinessLogicLayer;
 using BusinessObjects;
 using log4net;
 using PresentationLayer.CustomFilters;
+using System.Threading;
 
 namespace PresentationLayer.Controllers
 {
@@ -36,10 +37,9 @@ namespace PresentationLayer.Controllers
 
         public ActionResult Index(string petType = "Cat")
         {
-            if (LogOnException(_iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).oWebResponse, petType) == null)
+            if (LogOnException(_iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL(petType).oWebResponse, petType) == null)
             {
-                IEnumerable<OwnerPetBO> lOwnerPetBO = _iOwnerPetBuss.getOwnerPetInfoByPetTypeBL(petType).lstOwnerPetBO;
-                return View(lOwnerPetBO);
+                return View(_iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL(petType).lstOwnerPetBO);
             }
             else
                 return null;

@@ -7,23 +7,32 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PresentationLayer;
 using PresentationLayer.Controllers;
 using BusinessLogicLayer;
+using BusinessObjects;
 
 namespace PresentationLayer.Tests.Controllers
 {
-    [TestClass]
-    class OwnerPetControllerTest
+    [TestClass()]
+    public class OwnerPetControllerTest:Controller
     {
-        [TestMethod]
-        public void Index()
+        public IOwnerPetBuss _iOwnerPetBuss;
+
+        public OwnerPetControllerTest()
         {
-            // Arrange
-            OwnerPetController controller = new OwnerPetController();
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
         }
+
+        public OwnerPetControllerTest(IOwnerPetBuss iOwnerPetBuss)
+        {
+            _iOwnerPetBuss = iOwnerPetBuss;
+        }
+
+        [TestMethod()]
+        public void SuccessScenario()
+        {
+            var oOwnerPet = _iOwnerPetBuss.getOwnerPetInfoGroupByOwnerGenderBL("Cat").lstOwnerPetBO;
+
+            Assert.IsTrue(oOwnerPet.Count == 2);
+        }
+        
     }
 }

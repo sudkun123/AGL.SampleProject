@@ -1,35 +1,18 @@
-﻿@model IEnumerable<BusinessObjects.OwnerPetBO>
+﻿@using BusinessObjects;
+
+@model Dictionary<string, List<PetBO>>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model)
+@foreach (var gItem in Model)
 {
-    <tr>
-        <td>
-            @item.name
-        </td>
-        <td>
-            @item.gender
-        </td>
-        <td>
-            @item.age
-        </td>
-        <td>
-            @if(item.pets!=null)
-            {
-                @item.pets.Count
-            }
-        </td>
-    </tr>
+    <ul>@gItem.Key</ul>
+    foreach (var pItem in gItem.Value)
+    {
+        <li>
+            @pItem.name
+        </li>
+    }
 }
-
-</table>

@@ -97,6 +97,10 @@
       <Project>{cfa20473-6661-4e4a-919a-3ad05db45aff}</Project>
       <Name>BusinessLogicLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{199a434b-2066-48fc-a813-ceaa580100fe}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PresentationLayer\PresentationLayer.csproj">
       <Project>{387C5CDD-5CEB-47E4-9327-DB97B7480964}</Project>
       <Name>PresentationLayer</Name>
